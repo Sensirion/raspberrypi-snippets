@@ -19,34 +19,27 @@ All commands below need to be executed in the console terminal:
 sudo raspi-config
 ```
 and navigate to "5 - Interfacing Options" and enable "I2C"
-
-1. Restart the device if necessary
-
-1. Install additinal software packages
+2. Restart the device if necessary
+3. Install additinal software packages
 ```
 sudo apt-get install python3 python3-pip i2c-dev i2c-tools wget
 ```
-
-1. Install the smbus2 library
+4. Install the smbus2 library
 ```
 pip3 install smbus2
 ```
-
-1. Retrieve the example file from github, please adapt the link below according to the script you would like to use
+5. Retrieve the example file from github, please adapt the link below according to the script you would like to use
 ```
 wget -L https://raw.githubusercontent.com/Sensirion/raspberrypi-snippets/main/LD20_I2C_minmal_example.py
 ```
-
-1. Shutdown the Raspbery Pi to prevent any short circuits while handling and connect the sensor to the I2C interface
+6. Shutdown the Raspbery Pi to prevent any short circuits while handling and connect the sensor to the I2C interface
 ```
 sudo shutdown -h now
 ```
-
 7. Check if the sensor is detected on the I2C bus
 ```
 i2cdetect -y 1
 ```
-
 the result should look like this for an sensor on address 0x2e:
 ```
      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
@@ -54,9 +47,7 @@ the result should look like this for an sensor on address 0x2e:
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- 2e -- 
 ```
-
 If the sensor is not detected, check your wiring and if the correct voltage supply is used. 
-
 8. Run the example, please adapt the naming of the script according to your sensor
 ```
 python3 sensor_script.py
