@@ -57,7 +57,7 @@
 # 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 #
 # - Retrieve this example file from github
-# 'wget -L https://raw.githubusercontent.com/Fototux/python_snippets_for_raspberry_pi/main/ld20.py'
+# 'wget -L https://raw.githubusercontent.com/Sensirion/raspberrypi-snippets/main/LD20_I2C_minmal_example.py'
 #
 # - Run the example 'python3 ld20.py'
 
