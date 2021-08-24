@@ -48,7 +48,8 @@ the result should look like this for an sensor on address 0x2e:
 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- 2e -- 
 ```
-If the sensor is not detected, check your wiring and if the correct voltage supply is used. 
+If the sensor is not detected, check your wiring and if the correct voltage supply is used.
+
 8. Run the example, please adapt the naming of the script according to your sensor
 ```
 python3 sensor_script.py
