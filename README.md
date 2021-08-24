@@ -20,6 +20,7 @@ sudo raspi-config
 ```
 and navigate to "5 - Interfacing Options" and enable "I2C"
 2. Restart the device if necessary
+
 3. Install additinal software packages
 ```
 sudo apt-get install python3 python3-pip i2c-dev i2c-tools wget
