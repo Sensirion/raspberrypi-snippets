@@ -32,8 +32,8 @@
 # (c) Copyright 2021 Sensirion AG, Switzerland
 
 # Example to use a Sensirion SCD40 or SCD41 with a Raspbery Pi
-# 
-# Prerequisites: 
+#
+# Prerequisites:
 #
 # - open the command line tool
 #
@@ -50,13 +50,13 @@
 # executing the command 'i2cdetect -y 1'
 # the result should look like this:
 #      0  1  2  3  4  5  6  7  8  9  a  b  c  d  e  f
-# 00:          -- -- -- -- -- -- -- -- -- -- -- -- -- 
-# 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-# 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-# 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-# 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-# 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- 
-# 60: -- -- 62 -- -- -- -- -- -- -- -- -- -- -- -- -- 
+# 00:          -- -- -- -- -- -- -- -- -- -- -- -- --
+# 10: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# 20: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# 30: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# 40: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# 50: -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+# 60: -- -- 62 -- -- -- -- -- -- -- -- -- -- -- -- --
 #
 # - Retrieve this example file from github
 # 'wget -L https://raw.githubusercontent.com/Sensirion/raspberrypi-snippets/main/LD20_I2C_minmal_example.py'
@@ -72,7 +72,7 @@ from smbus2 import SMBus, i2c_msg
 DEVICE_BUS = 1
 
 # device address SCD4x
-DEVICE_ADDR = 0x62
+DEVICE_ADDR = 0x69
 
 # init I2C
 bus = SMBus(DEVICE_BUS)
@@ -80,53 +80,31 @@ bus = SMBus(DEVICE_BUS)
 # wait 1 s for sensor start up (> 1000 ms according to datasheet)
 time.sleep(1)
 
-# start scd measurement in periodic mode, will update every 5 s
-msg = i2c_msg.write(DEVICE_ADDR, [0x21, 0xB1])
-bus.i2c_rdwr(msg)
-
 # wait for first measurement to be finished
-time.sleep(5)
+time.sleep(2)
 
 # repeat read out of sensor data
-for i in range(10):
-
-    msg = i2c_msg.write(DEVICE_ADDR, [0xEC, 0x05])
+for i in range(1):
+    msg = i2c_msg.write(DEVICE_ADDR, [0xD2, 0x06])
     bus.i2c_rdwr(msg)
 
-    # wait 1 ms for data ready
-    time.sleep(0.001)
+    # wait 10 ms for data ready
+    time.sleep(0.01)
 
     # read 12 bytes; each three bytes in as a sequence of MSB, LSB, CRC
     # co2, temperature, rel. humidity, status
-    msg = i2c_msg.read(DEVICE_ADDR, 12)
+    msg = i2c_msg.read(DEVICE_ADDR, 6)
     bus.i2c_rdwr(msg)
-    
+
     # merge byte 0 and byte 1 to integer
-    # co2 is in ppm
-    co2 = msg.buf[0][0]<<8 | msg.buf[1][0]
+    most_sig_byte = (msg.buf[0][0] << 8 | msg.buf[1][0])/10
+    least_sig_byte = (msg.buf[3][0] << 8 | msg.buf[4][0])/10
 
-    # merge byte 3 and byte 4 to integer
-    temperature = msg.buf[3][0]<<8 | msg.buf[4][0]
-    # calculate temperature  according to datasheet
-    temperature = -45 + 175 * (temperature) / 65536.
-    
-    # merge byte 6 and byte 7 to integer
-    humidity = msg.buf[6][0]<<8 | msg.buf[7][0]
-    # calculate relative humidity according to datasheet
-    humidity = 100 * (humidity) / 65536.
-        
-    print("{:.2f},{:.2f},{:.2f}".format(co2, temperature, humidity))
+    print("Most significant byte: "+str(most_sig_byte))
+    print("Least significant byte: "+str(least_sig_byte))
+    # wait 2 s for next measurement
+    time.sleep(2)
 
-    # wait 5 s for next measurement
-    time.sleep(5)
 
-# stop the measurement
-# sensor will go to idle mode
-msg = i2c_msg.write(DEVICE_ADDR, [0x3F, 0x86])
-bus.i2c_rdwr(msg)
-    
-# wait 500 ms for finish command
-time.sleep(0.5)
-    
+
 bus.close()
-
