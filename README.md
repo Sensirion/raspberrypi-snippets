@@ -31,7 +31,7 @@ pip3 install smbus2
 ```
 5. Retrieve the example file from github, please adapt the link below according to the script you would like to use
 ```
-wget -L https://raw.githubusercontent.com/Sensirion/raspberrypi-snippets/main/LD20_I2C_minmal_example.py
+wget -L https://raw.githubusercontent.com/Sensirion/raspberrypi-snippets/main/LD20_I2C_minimal_example.py
 ```
 6. Shutdown the Raspbery Pi to prevent any short circuits while handling and connect the sensor to the I2C interface
 ```
@@ -54,4 +54,23 @@ If the sensor is not detected, check your wiring and if the correct voltage supp
 ```
 python3 sensor_script.py
 ```
+
+## SEN5x
+|Name|Protocol|Description|
+|----|--------|-----------|
+|LD20_I2C_PYTHON_minimal_example.py|I2C|Basic example for I2C for LD20 sensor|
+|SCD4x_I2C_PYTHON_minimal_example.py|I2C|Basic example for I2C for SCD40 sensor|
+|SEN5x_I2C_minimal_example.py|I2C|Basic example for I2C|
+|SEN5x_I2C_config_STAR_example.py|I2C|Example configuration of STAR|
+|SEN5x_I2C_config_coldstart_example.py|I2C|Change T offset for cold start compensation|
+|SEN5x_I2C_config_warmstart_example.py|I2C|Change T behaviour in warm start scenario|
+|SEN5x_I2C_change_VOC_parameters_example.py|I2C|Change VOC parameters over I2C|
+|SEN5x_I2C_change_NOx_parameters_example.py|I2C|Change NOx parameters over I2C|
+|SEN5x_I2C_read_raw.py|I2C|Example for reading raw VOC and NOX values from the sensor|
+|SEN5x_I2C_switch_measurement_mode.py|I2C|Example for switching between gas only and full measurement mode (requires FW2.0)|
+|SEN5x_I2C_memorize_VOC_index.py|I2C|Example for using the memory feature for the VOC gas index algorithm|
+
+## Notes
+You can find dedicated drivers for different experimental paltforms 
+[here](https://github.com/Sensirion/?q=sen5x&type=all&language=&sort=).
 
