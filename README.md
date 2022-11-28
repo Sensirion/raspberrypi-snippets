@@ -1,8 +1,8 @@
-# Sample Code for Rasperry Pis
+# Sample Code for Raspberry Pis
 Python code examples for raw sensor communication with many Sensirion sensors.
 
 # Summary
-The Raspbberry Pi Platform allows easy prototyping with almost endless possibilities. In addition to the documentation in the datasheet and application notes this repository demonstrates the communication with several Sensirion AG sensors through I2C interface which is integrated in Raspberry Pis. The examples are very basic and typically are a starting point for customer specific implementations. The code for the minimal examples only uses the Python based smbus2 library. An installation of Python is needed as well. 
+The Raspberry Pi Platform allows easy prototyping with almost endless possibilities. In addition to the documentation in the datasheet and application notes this repository demonstrates the communication with several Sensirion AG sensors through I2C interface which is integrated in Raspberry Pis. The examples are very basic and typically are a starting point for customer specific implementations. The code for the minimal examples only uses the Python based smbus2 library. An installation of Python is needed as well. 
 
 The code for the I2C interface examples is written without the use of abstractions so it could be easily adapted to own projects. To keep the code simple usually no error handling like CRC check or I2C NAK checks are implemented.
 
@@ -33,7 +33,7 @@ pip3 install smbus2
 ```
 wget -L https://raw.githubusercontent.com/Sensirion/raspberrypi-snippets/main/LD20_I2C_minimal_example.py
 ```
-6. Shutdown the Raspbery Pi to prevent any short circuits while handling and connect the sensor to the I2C interface
+6. Shutdown the Raspberry Pi to prevent any short circuits while handling and connect the sensor to the I2C interface
 ```
 sudo shutdown -h now
 ```
